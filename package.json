@@ -30,7 +30,7 @@
     "eslint-plugin-import": "^2.22"
   },
   "engines": {
-    "node": "^0.10",
+    "node": ">=10",
     "parcel": "^2.0.0-nightly.1 || ^2.0.0-beta.1"
   }
 }
