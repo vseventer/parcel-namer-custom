@@ -1,0 +1,37 @@
+{
+  "name": "parcel-namer-custom",
+  "version": "0.1.0",
+  "description": "Parcel namer plugin to rename bundles by interpolating a filename template.",
+  "keywords": [
+    "parcel",
+    "parcel-plugin",
+    "parcel-namer",
+    "interpolate"
+  ],
+  "author": "Mark van Seventer <mark@vseventer.com> (http://www.vseventer.com)",
+  "license": "MIT",
+  "main": "lib/",
+  "module": "src/",
+  "scripts": {
+    "lint": "eslint src/",
+    "build": "babel src/ -d lib/",
+    "preversion": "npm run lint && npm run build"
+  },
+  "dependencies": {
+    "@parcel/plugin": "^2.0.0-beta.1",
+    "~": "file:."
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12",
+    "@babel/core": "^7.12",
+    "@babel/preset-env": "^7.12",
+    "babel-eslint": "^10.1",
+    "eslint": "^7.14",
+    "eslint-config-airbnb-base": "^14.2",
+    "eslint-plugin-import": "^2.22"
+  },
+  "engines": {
+    "node": "^0.10",
+    "parcel": "^2.0.0-nightly.1 || ^2.0.0-beta.1"
+  }
+}
