@@ -10,7 +10,7 @@ import {
 import { Namer } from '@parcel/plugin';
 
 // Local modules.
-import { name as pluginName } from '~/package.json';
+import { name as pluginName } from '../package.json';
 
 // Plugin configuration importer.
 let projectPackagePromise = null;

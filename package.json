@@ -18,8 +18,7 @@
     "preversion": "npm run lint && npm run build && git add -A lib/"
   },
   "dependencies": {
-    "@parcel/plugin": "^2.0.0-beta.1",
-    "~": "file:."
+    "@parcel/plugin": "^2.0.0-beta.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12",
