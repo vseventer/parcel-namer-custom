@@ -41,31 +41,38 @@ export default new Namer({
     const pluginConfig = await getPluginConfig(projectRoot);
 
     // Walk through matchers until first hit, top to bottom.
-    const match = pluginConfig.find(([srcPattern]) => srcPattern.test(bundlePath));
-    if (match) {
-      const [, destPattern] = match;
-      const filePath = relativePath(projectRoot, bundlePath);
-      const parsed = parsePath(filePath);
+    for (let i = 0; i < pluginConfig.length; i += 1) {
+      const [srcPattern, destPattern] = pluginConfig[i];
+      const match = bundlePath.match(srcPattern);
+      if (match !== null) {
+        const filePath = relativePath(projectRoot, bundlePath);
+        const parsed = parsePath(filePath);
 
-      // Replace all macros except [hash], as this is internal Parcel macro we don't want to log.
-      const result = destPattern
-        .replace(/\[dir\]/gi, parsed.dir)
-        .replace(/\[folder\]/gi, basename(parsed.dir))
-        .replace(/\[base\]/gi, parsed.base)
-        .replace(/\[ext\]/gi, parsed.ext.substring(1)) // Remove leading "."
-        .replace(/\[name\]/gi, parsed.name)
-        .replace(/\[type\]/gi, bundle.type);
+        // Replace all macros except [hash], as this is an internal Parcel macro
+        // we don't want to log.
+        const result = destPattern
+          .replace(/\[dir\]/gi, parsed.dir)
+          .replace(/\[folder\]/gi, basename(parsed.dir))
+          .replace(/\[base\]/gi, parsed.base)
+          .replace(/\[ext\]/gi, parsed.ext.substring(1)) // Remove leading "."
+          .replace(/\[name\]/gi, parsed.name)
+          .replace(/\[type\]/gi, bundle.type)
+          .replace(/\[(\d+)\]/g, (original, n) => {
+            const idx = parseInt(n, 10);
+            return idx < match.length ? match[idx] : original;
+          });
 
-      // Log replacement.
-      logger.info({
-        message: `${filePath} → ${result}`,
-        filePath: bundlePath,
-        language: bundle.type,
-      });
+        // Log replacement.
+        logger.info({
+          message: `${filePath} → ${result}`,
+          filePath: bundlePath,
+          language: bundle.type,
+        });
 
-      // Return the result, with [hash] replaced this time.
-      return result
-        .replace(/\[hash\]/gi, bundle.hashReference);
+        // Return the result, with [hash] replaced this time.
+        return result
+          .replace(/\[hash\]/gi, bundle.hashReference);
+      }
     }
 
     // No match, continue with next namer.

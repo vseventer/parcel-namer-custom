@@ -25,7 +25,8 @@ The following tokens are replaced in the filename template:
 - `[ext]` the input extension of the bundle,
 - `[name]` the basename of the bundle,
 - `[type]` the output type of the bundle,
-- `[hash]` the hash of the bundle.
+- `[hash]` the hash of the bundle,
+- `[N]` the N-th match obtained from matching the current filename against the Regular Expression.
 
 ### Examples
 ```
