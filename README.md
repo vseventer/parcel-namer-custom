@@ -5,7 +5,7 @@
 1. `$ npm install parcel-namer-custom --save-dev`
 2. Update your `.parcelrc` with the entry below.
    ```
-   "namers": ["parcel-namer-rewrite", "..."],
+   "namers": ["parcel-namer-custom", "..."],
    ```
 
 *Important:* the three dots indicate to Parcel to run their default namer on any bundles that haven't been named yet.
