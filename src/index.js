@@ -37,7 +37,7 @@ export default new Namer({
     }
 
     const { filePath: bundlePath } = bundle.getMainEntry();
-    const { projectRoot } = options;
+    const projectRoot = process.cwd();
     const pluginConfig = await getPluginConfig(projectRoot);
 
     // Walk through matchers until first hit, top to bottom.
