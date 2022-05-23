@@ -42,6 +42,8 @@ The following tokens are replaced in the filename template:
 // src/modules/main.jsx -> scripts/main.9488dd.js
 ```
 
+If the environment variable `PARCEL_NAMER_CUSTOM_STAGE=deploy` is set, `parcel-namer-custom:deploy` object prop will loaded.
+
 ## Debugging
 Run Parcel with `--log-level info` to see what bundles are renamed.
 

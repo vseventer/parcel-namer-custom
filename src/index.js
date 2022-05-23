@@ -12,6 +12,8 @@ import { Namer } from '@parcel/plugin';
 // Local modules.
 import { name as pluginName } from '../package.json';
 
+const pkgConfigKey = process.env.PARCEL_NAMER_CUSTOM_STAGE ? `${pluginName}:${process.env.PARCEL_NAMER_CUSTOM_STAGE}` : pluginName;
+
 // Plugin configuration importer.
 let projectPackagePromise = null;
 const getPluginConfig = (projectRoot) => {
@@ -19,7 +21,7 @@ const getPluginConfig = (projectRoot) => {
   if (projectPackagePromise == null) {
     projectPackagePromise = import(joinPath(projectRoot, 'package.json'))
       .then((pkgConfig) => Object
-        .entries(pkgConfig[pluginName] || {})
+        .entries(pkgConfig[pkgConfigKey] || {})
         .map(([srcPattern, destPattern]) => ([
           new RegExp(srcPattern, 'i'),
           destPattern,
